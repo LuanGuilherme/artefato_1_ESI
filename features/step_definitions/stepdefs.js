@@ -369,3 +369,51 @@ Then('I should see an Error Conflict message', {timeout: 60 * 1000}, async funct
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/header/nav/div/div[1]/div/button")).click();
     await driver.findElement(By.xpath("/html/body/div[2]/div/ul/li[3]/button")).click();
 });
+
+
+
+// 
+
+When('I fill the time data with End Date With Year Greater Than Current', {timeout: 60 * 1000}, async function () { 
+    await driver.sleep(6000);
+
+    await driver.findElement(By.xpath("//*[@id=\"start_date\"]")).sendKeys("01/01/1900");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys("data");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[3]/div/div/div[1]/input")).sendKeys("YYYY-MM-DD");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[3]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+    
+    const anoAtual = new Date().getFullYear();
+    const proximoAno = anoAtual + 1;
+
+    await driver.findElement(By.xpath("//*[@id=\"end_date\"]")).sendKeys(`01/01/${proximoAno}`);
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[2]/div/div/div[1]/input")).sendKeys("datafim");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[3]/div/div/div[1]/input")).sendKeys("YYYY-MM-DD");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[3]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+});
+
+
+Then('I should see an Validation Year Error message', {timeout: 60 * 1000}, async function () { 
+    await driver.sleep(1000);
+
+    try {
+        const errorModalElement = await driver.findElement(By.css('div[role="alert"].el-message.el-message--error'));
+        const errorModalDisplayed = await errorModalElement.isDisplayed();
+        
+        if (errorModalDisplayed) {
+            const errorMessageElement = await errorModalElement.findElement(By.css('.el-message__content'));
+            const errorMessageActual = await errorMessageElement.getText();
+
+            var currentDate = new Date();
+            const errorMessageExpected = `O ano da data final da camada deve ser no máximo ${currentDate.getFullYear()}!`;
+
+            expect(errorMessageActual).to.equal(errorMessageExpected);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/header/nav/div/div[1]/div/button")).click();
+    await driver.findElement(By.xpath("/html/body/div[2]/div/ul/li[3]/button")).click();
+});
