@@ -1,5 +1,5 @@
 Feature: User can manually add a layer 
-  Scenario: Add a layer
+  Scenario: Add a layer with a name already exists
     Given I am on the Pauliceia 2.0 home page
     When I follow Entrar
     Then I should be on the Login page
@@ -11,16 +11,9 @@ Feature: User can manually add a layer
     And I click user icon
     And follow Painel
     Then I should be on the Dashboard page
-    When I follow Nova Camada
+    When I Copy The Name of the First Layer
+    And I follow Nova Camada
     Then I should be on the Nova Camada page
-    When I fill the required data
+    When I fill the required data pasting the layer name that I copied
     And I press Enviar
-    Then I should be on the Dados Temporais page
-    When I fill the time data
-    And I press the Enviar button
-    When I follow Mapa
-    And I verify if a error modal is displayed close
-    And I click Camadas
-    And click on the layers controll
-    And search for teste number
-    Then I should see test number on the list
+    Then I should see an Error Conflict message
