@@ -24,7 +24,7 @@ const driver = new Builder()
 // Navigate to sobre
 
 Given('I am on the Pauliceia 2.0 home page', {timeout: 60 * 1000}, async function () {
-    await driver.get('https://pauliceia.unifesp.br/portal/home');
+    await driver.get('http://localhost:8080/portal/home');
 });
 
 When('I follow Sobre', {timeout: 60 * 1000}, async function () {
@@ -298,4 +298,37 @@ Then('I should see my keyword on the right panel', {timeout: 60 * 1000}, async f
     expect(elem_text).to.equal(this.keywordRand);
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/header/nav/div/div[1]/div/button")).click();
     await driver.findElement(By.xpath("/html/body/div[2]/div/ul/li[3]/button")).click();
+});
+
+// Show layer description
+When('it displays a list of layers', {timeout: 60 * 1000}, async function () {
+    await driver.sleep(3000);
+    const element = await driver.wait(until.elementLocated(By.xpath("/html/body/div[1]/section/div/section/div/div[2]/div/div/div/div[2]")), 2000);
+    await driver.wait(until.elementIsVisible(element), 1000);
+});
+
+When('I click on the "Mostrar Mais" button', {timeout: 60 * 1000}, async function () {
+    await driver.sleep(3000);
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/section/div/div[2]/div/div/div/div[2]/article[1]/div/div[1]/p[4]/span/div/button")).click();
+});
+
+Then('I should see the layer description', {timeout: 60 * 1000}, async function () {
+    await driver.sleep(3000);
+    const element = await driver.wait(until.elementLocated(By.xpath("/html/body/div[1]/section/div/section/div/div[2]/div/div/div/div[2]/article[1]/div/div[1]/p[4]/span")), 2000);
+    await driver.wait(until.elementIsVisible(element), 1000);
+    const elem_text = await element.getText();
+    expect(elem_text).to.equal("DESCRIÇÃO: Test Description\nMostrar menos");	
+});
+
+When('I click on the "Mostrar Menos" button', {timeout: 60 * 1000}, async function () {
+    await driver.sleep(3000);
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/section/div/div[2]/div/div/div/div[2]/article[1]/div/div[1]/p[4]/span/div/button")).click();
+});
+
+Then('I should not see the layer description', {timeout: 60 * 1000}, async function () {
+    await driver.sleep(3000);
+    const element = await driver.wait(until.elementLocated(By.xpath("/html/body/div[1]/section/div/section/div/div[2]/div/div/div/div[2]/article[1]/div/div[1]/p[4]/span")), 2000);
+    await driver.wait(until.elementIsVisible(element), 1000);
+    const elem_text = await element.getText();
+    expect(elem_text).to.equal("Mostrar mais");	
 });
