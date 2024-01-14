@@ -135,17 +135,17 @@ When('I fill the required data', {timeout: 60 * 1000}, async function () {
     this.nomeCamada = Math.random().toString().replace('0.', '');
     await driver.findElement(By.xpath("//*[@id=\"inputName\"]")).sendKeys("teste camada " + this.nomeCamada);
     await driver.findElement(By.xpath("/html/body/div/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[1]/div[2]/div/div/div[1]/input")).click();
-    await driver.sleep(100);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("/html/body/div/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[1]/div[2]/div/div/div[1]/input")).sendKeys("generic");
-    await driver.sleep(200);
+    await driver.sleep(500);
     await driver.findElement(By.xpath("/html/body/div/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
-    await driver.sleep(100);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys("cintiaalmeida");
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
-    await driver.sleep(100);
+    await driver.sleep(500);
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys("testeEACH");
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
-    await driver.sleep(100);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("//*[@id=\"inputDescription\"]")).sendKeys("Teste de adição de camada");
     await driver.findElement(By.xpath("//*[@id=\"inputReference\"]")).sendKeys("DE TAL, Fulano. Especialização em temas gerais.");
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[4]/div/div[2]/a")).click();
@@ -344,17 +344,17 @@ When('I fill the required data pasting the layer name that I copied', {timeout: 
     this.nomeCamada = this.actualAnswer;
     await driver.findElement(By.xpath("//*[@id=\"inputName\"]")).sendKeys(this.nomeCamada);
     await driver.findElement(By.xpath("/html/body/div/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[1]/div[2]/div/div/div[1]/input")).click();
-    await driver.sleep(100);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("/html/body/div/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[1]/div[2]/div/div/div[1]/input")).sendKeys("generic");
-    await driver.sleep(200);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("/html/body/div/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
-    await driver.sleep(100);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys("cintiaalmeida");
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
-    await driver.sleep(100);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys("testeEACH");
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
-    await driver.sleep(100);
+    await driver.sleep(300);
     await driver.findElement(By.xpath("//*[@id=\"inputDescription\"]")).sendKeys("Teste de adição de camada");
     await driver.findElement(By.xpath("//*[@id=\"inputReference\"]")).sendKeys("DE TAL, Fulano. Especialização em temas gerais.");
     await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div[1]/div/div/form/div[1]/div[4]/div/div[2]/a")).click();
@@ -426,6 +426,24 @@ When('I fill the time data with End Date With Year Greater Than Current', {timeo
 });
 
 
+When('I fill the time data with Start Date Greater Than End Date', {timeout: 60 * 1000}, async function () { 
+    await driver.sleep(6000);
+
+    await driver.findElement(By.xpath("//*[@id=\"start_date\"]")).sendKeys("01/02/2023");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys("data");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[3]/div/div/div[1]/input")).sendKeys("YYYY-MM-DD");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[1]/div[3]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+    await driver.findElement(By.xpath("//*[@id=\"end_date\"]")).sendKeys('01/01/2023');
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[2]/div/div/div[1]/input")).sendKeys("datafim");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[2]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[3]/div/div/div[1]/input")).sendKeys("YYYY-MM-DD");
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/div/main/div/div/div/div/div/div/div/form/div[2]/div[3]/div/div/div[1]/input")).sendKeys(Key.RETURN);
+});
+
+
+
+
 Then('I should see an Validation Year Error message', {timeout: 60 * 1000}, async function () { 
     await driver.sleep(1000);
 
@@ -439,6 +457,32 @@ Then('I should see an Validation Year Error message', {timeout: 60 * 1000}, asyn
 
             var currentDate = new Date();
             const errorMessageExpected = `O ano da data final da camada deve ser no máximo ${currentDate.getFullYear()}!`;
+
+            expect(errorMessageActual).to.equal(errorMessageExpected);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    await driver.findElement(By.xpath("/html/body/div[1]/section/div/header/nav/div/div[1]/div/button")).click();
+    await driver.findElement(By.xpath("/html/body/div[2]/div/ul/li[3]/button")).click();
+});
+
+
+
+Then('I should see an Validation Start Date And End Date Error message', {timeout: 60 * 1000}, async function () { 
+    await driver.sleep(1000);
+
+    try {
+        const errorModalElement = await driver.findElement(By.css('div[role="alert"].el-message.el-message--error'));
+        const errorModalDisplayed = await errorModalElement.isDisplayed();
+        
+        if (errorModalDisplayed) {
+            const errorMessageElement = await errorModalElement.findElement(By.css('.el-message__content'));
+            const errorMessageActual = await errorMessageElement.getText();
+
+            var currentDate = new Date();
+            const errorMessageExpected = 'A data inicial não pode ser maior que a data final!';
 
             expect(errorMessageActual).to.equal(errorMessageExpected);
         }
